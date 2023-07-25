@@ -1,0 +1,12 @@
+<div class="col grow game-card shadow" [routerLink]="['/game', game.id]">
+    <div class="card h-100">
+        <app-spinner-image class="d-flex p-4 align-items-center justify-content-center" *ngIf="isLoading"/>
+        <ng-container *ngIf="!isLoading">
+            <img [src]="game.thumbnail" class="card-img-top" [alt]="game.title" />
+        </ng-container>
+        <div class="card-body">
+            <h5 class="card-title">{{game.title}}</h5>
+            <p class="card-text">{{game.shortDescription}}</p>
+        </div>
+    </div>
+</div>

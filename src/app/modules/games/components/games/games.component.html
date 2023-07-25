@@ -1,0 +1,49 @@
+<div class="content-spinner" *ngIf="isLoading">
+  <app-spinner/>
+</div>
+
+<ng-container *ngIf="!isLoading">
+  <div class="container pb-4" style="padding-top: 5rem;">
+
+    <div class="d-flex justify-content-between">
+      <h1>Listado de Juegos</h1>
+      
+      <div class="d-flex gap-4">
+        <mat-form-field>
+          <mat-label>Plataforma</mat-label>
+          <mat-select [(ngModel)]="filterPlatform" (selectionChange)="applyFilters()">            
+            <mat-option [value]="">Todos</mat-option>
+            <mat-option *ngFor="let platform of platforms" [value]="platform">
+              {{platform}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Género</mat-label>
+          <mat-select [(ngModel)]="filterGenre" (selectionChange)="applyFilters()">            
+            <mat-option [value]="">Todos</mat-option>
+            <mat-option *ngFor="let genre of genres" [value]="genre">
+              {{genre}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      
+    </div>
+    
+    <hr class="mt-2 mb-3">
+
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+      <ng-container *ngFor="let game of (gamesFiltered | filter: filterTitle) | slice: from : to">
+        <app-game-card [game]="game"/>
+      </ng-container>
+    </div>  
+  </div>
+  
+  <mat-paginator class="position-absolute bottom-0 w-100"
+      [length]="(gamesFiltered | filter: filterTitle).length"
+      [pageSize]="pageSize"
+      (page)="changePage($event)"
+      aria-label="Select page"/>
+</ng-container>

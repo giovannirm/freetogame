@@ -1,10 +1,19 @@
 import { Component } from '@angular/core';
+import { Meta, Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  template: `
+    <app-navbar/>
+    <router-outlet/>
+  `
 })
 export class AppComponent {
-  title = 'freetogame';
+  constructor(
+    private title : Title,
+    private meta  : Meta
+  ) {
+    this.title.setTitle('FreeToGame')    
+    this.meta.updateTag({ name: 'description', content: 'watch free games online' })
+  }
 }

@@ -1,0 +1,50 @@
+.img-thumbnail {
+    width: 100%;
+    height: auto;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar {
+    position: sticky;
+    top: 75px;
+    z-index: 1;
+}
+
+a.btn-block {
+    display: block;
+    width: 100%;
+}
+
+#description p {
+    text-align: justify;
+}
+
+#description p.collapse:not(.show) {
+    min-height: 140px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical
+}
+
+.read {
+    text-decoration: none;
+    color: #000;
+    font-weight: bold;
+}
+
+#description a.collapsed:after {
+    content: '+ Leer Más';
+}
+
+#description a:not(.collapsed):after {
+    content: '- Leer Menos';
+}
+
+.thumb-gallery {
+    width: 100%;
+    height: 100%;
+    display: inline-flex;
+    object-fit: cover;
+}
