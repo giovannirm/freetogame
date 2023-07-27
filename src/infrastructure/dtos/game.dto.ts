@@ -28,3 +28,8 @@ export interface IGameDTO extends IBaseDTO {
     minimum_system_requirements? : IMinimunSystemRequirementsDTO
     screenshots?                 : IScreenshotDTO[]
 }
+
+export interface IErrorDTO {
+    status         : number
+    status_message : string
+}

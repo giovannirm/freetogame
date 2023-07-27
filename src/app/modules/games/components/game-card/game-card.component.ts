@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core'
-import { IGame } from '@core/entities/game.entity'
+import { GameEntity, IGame } from '@core/entities/game.entity'
 
 @Component({
   selector: 'app-game-card',
@@ -7,10 +7,14 @@ import { IGame } from '@core/entities/game.entity'
   styleUrls: ['./game-card.component.css']
 })
 export class GameCardComponent implements OnInit {
-  @Input() game!     : IGame
+  @Input() game      : IGame
 
   public   isLoading : boolean = true
 
+  constructor() { 
+    this.game = new GameEntity()
+  }
+  
   ngOnInit(): void {
     this.loadImage()
   }

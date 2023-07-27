@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Meta, Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
-import { GamesAggregate } from '@core/aggregates/game.aggregate';
+import { ErrorEntity, IError } from '@core/entities/error.entity';
 import { GameEntity, IGame } from '@core/entities/game.entity';
 import { GameService } from '@infrastructure/services/game.service';
 
@@ -11,19 +10,17 @@ import { GameService } from '@infrastructure/services/game.service';
   styleUrls: ['./game.component.css']
 })
 export class GameComponent implements OnInit{
-  public game: IGame
-  public isLoading: boolean = true
+  public game      : IGame
+  public isLoading : boolean
+  public error     : IError
 
   constructor(
     private gameService : GameService,
     private router      : ActivatedRoute,
-    private title       : Title,
-    private meta        : Meta
-  ) {
-    this.title.setTitle('Game');
-    this.meta.updateTag({name:'description',content:'watch free games online'});
-    
-    this.game = new GameEntity()
+  ) {    
+    this.game      = new GameEntity()
+    this.isLoading = true
+    this.error     = new ErrorEntity()
   }
 
   ngOnInit(): void {
@@ -33,9 +30,12 @@ export class GameComponent implements OnInit{
   }
 
   getGame(id: string): void {
-    this.gameService.getGame(id).subscribe((game: GameEntity) => {
-      this.game = game
-    }).add(() => {
+    this.gameService.getGame(id).subscribe((gameOrError: GameEntity | ErrorEntity) => {
+      if(gameOrError instanceof GameEntity) {
+        this.game = gameOrError
+      } else {
+        this.error = gameOrError
+      }
       this.isLoading = false
     })
   }

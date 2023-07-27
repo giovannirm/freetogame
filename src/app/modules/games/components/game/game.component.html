@@ -2,102 +2,110 @@
     <app-spinner/>
 </div>
 
-<div class="container mt-5 py-4" *ngIf="!isLoading">
-    <div class="row gy-4">
-        <div class="col-md-4">
-            <div class="sidebar control-box">
-                <div class="card shadow mb-3 rounded">
-                    <img class="img-thumbnail card-img-top progressive replace" width="331"
-                        height="201" [src]="game.thumbnail" [alt]="game.title">
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <a  type="button"
-                            name="playnow"
-                            class="btn btn-dark btn-block"
-                            [href]="game.gameUrl"
-                            rel="nofollow"
-                            target="_blank">
-                            <strong>JUGAR AHORA</strong>
-                            <i class="bi bi-box-arrow-right"></i>
-                        </a>
+<ng-container *ngIf="!isLoading && !error.status">
+    <div class="container-error">
+        <h1>{{error.statusMessage}}</h1>
+    </div>
+</ng-container>
+
+<ng-container *ngIf="!isLoading && error.status">
+    <div class="container mt-5 py-4">
+        <div class="row gy-4">
+            <div class="col-md-4">
+                <div class="sidebar control-box">
+                    <div class="card shadow mb-3 rounded">
+                        <img class="img-thumbnail card-img-top progressive replace" width="331"
+                            height="201" [src]="game.thumbnail" [alt]="game.title">
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <a  type="button"
+                                name="playnow"
+                                class="btn btn-dark btn-block"
+                                [href]="game.gameUrl"
+                                rel="nofollow"
+                                target="_blank">
+                                <strong>JUGAR AHORA</strong>
+                                <i class="bi bi-box-arrow-right"></i>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="col-md-8">
-            <h1>{{game.title}}</h1>
-            <hr class="mt-2 mb-3">
-            <h2 class="mt-4 h3">Acerca de {{game.title}}</h2>
-            <hr class="mt-2 mb-3">
-            <div id="description">
-                <p class="collapse" id="collapseDescription">
-                    {{game.description}}
-                </p>
-                <a class="read collapsed" data-bs-toggle="collapse" href="#collapseDescription" aria-expanded="false" aria-controls="collapseDescription"></a>
-            </div>
-            <h2 class="mt-5 h3">Información Adicional</h2>
-            <hr class="mt-2 mb-3">
-            <div class="row mb-3">
-                <div class="col-6 col-md-4">
-                    <span class="text-muted">Título<br></span>
-                    <p>{{game.title}}</p>
+            <div class="col-md-8">
+                <h1>{{game.title}}</h1>
+                <hr class="mt-2 mb-3">
+                <h2 class="mt-4 h3">Acerca de {{game.title}}</h2>
+                <hr class="mt-2 mb-3">
+                <div id="description">
+                    <p class="collapse" id="collapseDescription">
+                        {{game.description}}
+                    </p>
+                    <a class="read collapsed" data-bs-toggle="collapse" href="#collapseDescription" aria-expanded="false" aria-controls="collapseDescription"></a>
                 </div>
-                <div class="col-6 col-md-4">
-                    <span class="text-muted">Desarrollador<br></span>
-                    <p>{{game.developer}}</p>
+                <h2 class="mt-5 h3">Información Adicional</h2>
+                <hr class="mt-2 mb-3">
+                <div class="row mb-3">
+                    <div class="col-6 col-md-4">
+                        <span class="text-muted">Título<br></span>
+                        <p>{{game.title}}</p>
+                    </div>
+                    <div class="col-6 col-md-4">
+                        <span class="text-muted">Desarrollador<br></span>
+                        <p>{{game.developer}}</p>
+                    </div>
+                    <div class="col-6 col-md-4">
+                        <span class="text-muted">Editor<br></span>
+                        <p>{{game.publisher}}</p>
+                    </div>
+                    <div class="col-6 col-md-4">
+                        <span class="text-muted">Fecha de lanzamiento<br></span>
+                        <p>{{game.releaseDate | date}}</p>
+                    </div>
+                    <div class="col-6 col-md-4">
+                        <span class="text-muted">Género<br></span>
+                        <p>{{game.genre}}</p>
+                    </div>
+                    <div class="col-6 col-md-4">
+                        <span class="text-muted">Plataforma<br></span>
+                        <i class="fab fa-windows mr-1"></i> {{game.platform}}
+                    </div>
                 </div>
-                <div class="col-6 col-md-4">
-                    <span class="text-muted">Editor<br></span>
-                    <p>{{game.publisher}}</p>
+                <h2 class="h3 font-weight-dark text-center text-lg-left mt-5 mb-0">Capturas de pantalla</h2>
+                <hr class="mt-2 mb-3">
+                <div class="row text-center text-lg-left g-4">
+                    <ng-container *ngFor="let screenshot of game.screenshots; let i = index">
+                        <div class="col-lg-4 col-md-4 col-6">
+                            <a [href]="screenshot.image" data-lity="" class="d-block mb-3 h-100" [attr.aria-label]="game.title + ' Gameplay Screenshot ' + (i + 1)" target="_blank">
+                                <img class="thumb-gallery shadow-sm rounded" [src]="screenshot.image | imageSuffix" [alt]="game.title + ' Thumbnail ' + (i + 1)">
+                            </a>
+                        </div>
+                    </ng-container>
                 </div>
-                <div class="col-6 col-md-4">
-                    <span class="text-muted">Fecha de lanzamiento<br></span>
-                    <p>{{game.releaseDate | date}}</p>
-                </div>
-                <div class="col-6 col-md-4">
-                    <span class="text-muted">Género<br></span>
-                    <p>{{game.genre}}</p>
-                </div>
-                <div class="col-6 col-md-4">
-                    <span class="text-muted">Plataforma<br></span>
-                    <i class="fab fa-windows mr-1"></i> {{game.platform}}
-                </div>
-            </div>
-            <h2 class="h3 font-weight-dark text-center text-lg-left mt-5 mb-0">Capturas de pantalla</h2>
-            <hr class="mt-2 mb-3">
-            <div class="row text-center text-lg-left g-4">
-                <ng-container *ngFor="let screenshot of game.screenshots; let i = index">
-                    <div class="col-lg-4 col-md-4 col-6">
-                        <a [href]="screenshot.image" data-lity="" class="d-block mb-3 h-100" [attr.aria-label]="game.title + ' Gameplay Screenshot ' + (i + 1)" target="_blank">
-                            <img class="thumb-gallery shadow-sm rounded" [src]="screenshot.image | imageSuffix" [alt]="game.title + ' Thumbnail ' + (i + 1)">
-                        </a>
+    
+                <ng-container *ngIf="game.minimumSystemRequirements">
+                    <h2 class="h3 font-weight-dark text-center text-lg-left mt-5 mb-0">
+                        Requisitos mínimos del sistema <span class="small text-muted">({{game.platform}})</span>
+                    </h2>
+                    <hr class="mt-2 mb-3">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <span class="text-muted">OS<br></span>
+                            <p>{{game.minimumSystemRequirements.os}}</p>
+                            <span class="text-muted">Memoria<br></span>
+                            <p>{{game.minimumSystemRequirements.memory}}</p>
+                            <span class="text-muted">Almacenamiento<br></span>
+                            <p>{{game.minimumSystemRequirements.storage}}</p>
+                        </div>
+                        <div class="col-sm-6">
+                            <span class="text-muted">Procesador<br></span>
+                            <p>{{game.minimumSystemRequirements.processor}}</p>
+                            <span class="text-muted">Gráficos<br></span>
+                            <p>{{game.minimumSystemRequirements.graphics}}</p>
+                        </div>
                     </div>
                 </ng-container>
             </div>
-
-            <ng-container *ngIf="game.minimumSystemRequirements">
-                <h2 class="h3 font-weight-dark text-center text-lg-left mt-5 mb-0">
-                    Requisitos mínimos del sistema <span class="small text-muted">({{game.platform}})</span>
-                </h2>
-                <hr class="mt-2 mb-3">
-                <div class="row">
-                    <div class="col-sm-6">
-                        <span class="text-muted">OS<br></span>
-                        <p>{{game.minimumSystemRequirements.os}}</p>
-                        <span class="text-muted">Memoria<br></span>
-                        <p>{{game.minimumSystemRequirements.memory}}</p>
-                        <span class="text-muted">Almacenamiento<br></span>
-                        <p>{{game.minimumSystemRequirements.storage}}</p>
-                    </div>
-                    <div class="col-sm-6">
-                        <span class="text-muted">Procesador<br></span>
-                        <p>{{game.minimumSystemRequirements.processor}}</p>
-                        <span class="text-muted">Gráficos<br></span>
-                        <p>{{game.minimumSystemRequirements.graphics}}</p>
-                    </div>
-                </div>
-            </ng-container>
         </div>
     </div>
-</div>
+</ng-container>

@@ -5,10 +5,9 @@
 <ng-container *ngIf="!isLoading">
   <div class="container pb-4" style="padding-top: 5rem;">
 
-    <div class="d-flex justify-content-between">
+    <div class="row row-cols-1 row-cols-md-3">
       <h1>Listado de Juegos</h1>
       
-      <div class="d-flex gap-4">
         <mat-form-field>
           <mat-label>Plataforma</mat-label>
           <mat-select [(ngModel)]="filterPlatform" (selectionChange)="applyFilters()">            
@@ -28,7 +27,6 @@
             </mat-option>
           </mat-select>
         </mat-form-field>
-      </div>
       
     </div>
     
